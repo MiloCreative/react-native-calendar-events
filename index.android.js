@@ -13,6 +13,10 @@ export default {
   async authorizeEventStore () {
     return CalendarEvents.requestCalendarPermissions()
   },
+  
+  async setPermissionRequested () {
+    return CalendarEvents.setPermissionRequested()
+  },  
 
   async fetchAllEvents (startDate, endDate, calendars = []) {
     return CalendarEvents.findAllEvents(startDate, endDate, calendars)
