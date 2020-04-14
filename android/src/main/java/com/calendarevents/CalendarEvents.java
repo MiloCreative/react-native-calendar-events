@@ -1161,15 +1161,32 @@ public class CalendarEvents extends ReactContextBaseJavaModule {
         SharedPreferences sharedPreferences = reactContext.getSharedPreferences(RNC_PREFS, ReactContext.MODE_PRIVATE);
         boolean permissionRequested = sharedPreferences.getBoolean("permissionRequested", false);
 
+        Log.d(this.getName(), "permissionRequested");
+
         if (this.haveCalendarReadWritePermissions()) {
+            Log.d(this.getName(), "permissionRequested authorized");
             promise.resolve("authorized");
         } else if (!permissionRequested) {
+            Log.d(this.getName(), "permissionRequested undetermined");
+
             promise.resolve("undetermined");
         } else if(this.shouldShowRequestPermissionRationale()) {
+            Log.d(this.getName(), "permissionRequested denied");
             promise.resolve("denied"); 
         } else {
+            Log.d(this.getName(), "permissionRequested restricted");
             promise.resolve("restricted");
         }
+    }
+
+    @ReactMethod
+    public void setPermissionRequested(Promise promise) {
+        SharedPreferences sharedPreferences = reactContext.getSharedPreferences(RNC_PREFS, ReactContext.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("permissionRequested", true);
+        editor.apply();
+        Log.d(this.getName(), "setPermissionRequested true");
+        promise.resolve("permissionRequested");
     }
 
     @ReactMethod
