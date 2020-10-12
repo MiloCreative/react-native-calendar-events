@@ -18,6 +18,10 @@ export default {
     return CalendarEvents.setPermissionRequested()
   },  
 
+  async resetPermissionRequested () {
+    return CalendarEvents.resetPermissionRequested()
+  },  
+  
   async fetchAllEvents (startDate, endDate, calendars = []) {
     return CalendarEvents.findAllEvents(startDate, endDate, calendars)
   },
